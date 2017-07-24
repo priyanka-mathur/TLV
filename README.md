@@ -7,7 +7,7 @@
   * Value - the actual data to be processed of length 'Length' above.
 
 ## Build
-* To build do mvn clean install
+* To build do: ```mvn clean install```
 * After building the project, the jar can be found in the target directory as tlvprocessor-<version>.jar
 
 ## Usage
