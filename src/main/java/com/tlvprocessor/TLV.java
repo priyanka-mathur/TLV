@@ -1,11 +1,7 @@
 package com.tlvprocessor;
 
-import com.tlvprocessor.processor.TypeProcessor;
+import com.tlvprocessor.exception.TypeNotValidException;
 import com.tlvprocessor.util.TransformerFactory;
-
-import java.util.Optional;
-
-import static com.tlvprocessor.TypeEnum.*;
 
 public class TLV {
 
@@ -39,11 +35,11 @@ public class TLV {
    * @return the string after processing value
    */
   public String processValue() {
-    if (isValidType(this.type)) {
-      Optional<? extends TypeProcessor> typeProcessor = TransformerFactory.getProcessor(TypeEnum.valueOf(this.type));
-      return typeProcessor.get().transform(this.value);
+    try {
+      return TransformerFactory.getProcessor(TypeEnum.getValue(this.type)).transform(this.value);
+    } catch (TypeNotValidException e) {
+      return e.toString();
     }
-    return "Type Not Valid";
   }
 
   public String getType() {

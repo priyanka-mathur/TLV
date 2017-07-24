@@ -1,22 +1,21 @@
 package com.tlvprocessor.util;
 
 import com.tlvprocessor.TypeEnum;
+import com.tlvprocessor.exception.TypeNotValidException;
 import com.tlvprocessor.processor.Replace;
 import com.tlvprocessor.processor.TypeProcessor;
 import com.tlvprocessor.processor.Uppercase;
 
-import java.util.Optional;
-
 public class TransformerFactory {
 
-  public static Optional<? extends TypeProcessor> getProcessor(TypeEnum type) {
+  public static TypeProcessor getProcessor(TypeEnum type) throws TypeNotValidException {
     switch (type) {
       case UPPRCS:
-        return Optional.of(new Uppercase());
+        return new Uppercase();
       case REPLCE:
-        return Optional.of(new Replace());
+        return new Replace();
       default:
-        return Optional.empty();
+        throw new TypeNotValidException();
     }
   }
 }

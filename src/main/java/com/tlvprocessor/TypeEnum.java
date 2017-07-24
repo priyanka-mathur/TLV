@@ -1,5 +1,7 @@
 package com.tlvprocessor;
 
+import com.tlvprocessor.exception.TypeNotValidException;
+
 public enum TypeEnum {
   UPPRCS("UPPRCS"),
   REPLCE("REPLCE");
@@ -11,20 +13,6 @@ public enum TypeEnum {
   }
 
   /**
-   * method to check if type is valid
-   *
-   * @return true if type is present in Enum, false otherwise
-   */
-  public static boolean isValidType(String type) {
-    for (TypeEnum e : TypeEnum.values()) {
-      if (type.equals(e.toString())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
    * toString method.
    *
    * @return Value of this Enum as String.
@@ -33,4 +21,18 @@ public enum TypeEnum {
   public String toString() {
     return type;
   }
+
+  /**
+   * custom implementation of valueOf
+   * @return TypeEnum of type, throws TypeNotValidException
+   */
+  public static TypeEnum getValue(String type) throws TypeNotValidException {
+    for (TypeEnum e : TypeEnum.values()) {
+      if (type.equals(e.toString())) {
+        return e;
+      }
+    }
+    throw new TypeNotValidException();
+  }
+
 }
